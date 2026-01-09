@@ -21,22 +21,27 @@ app.use(express.json());
 //Middleware
 app.use(jsonParser);
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
 
 const corsOptions = {
-  origin: "*", // Allow all origins
-  credentials: true, // Allow credentials
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://taglay-manjares.vercel.app",
+    "https://taglay-manjares-git-main-sugarkokos-projects.vercel.app",
+    process.env.CLIENT_URL // Add your deployed client URL as env variable
+  ].filter(Boolean), // Remove empty/undefined values
+  credentials: true,
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
   preflightContinue: false,
-  optionsSuccessStatus: 204, // For legacy browser support
+  optionsSuccessStatus: 204,
 };
-app.options("", cors(corsOptions)); // Pre-flight request for all routes
+
 app.use(cors(corsOptions));
 
 // Curb Cores Error by adding a header here
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
@@ -45,6 +50,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
 });
 
