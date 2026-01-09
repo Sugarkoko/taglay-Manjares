@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import NotFoundPage from '../NotFoundPage.jsx';
+import constants from '../../constants';
 
 function ArticlePage() {
   const { name } = useParams();
@@ -9,7 +10,7 @@ function ArticlePage() {
 
   useEffect(() => {
     // Fetch article from API
-    fetch(`http://localhost:8000/api/articles/${name}`)
+    fetch(`${constants.HOST}/articles/${name}`)
       .then(res => {
         if (!res.ok) throw new Error('Article not found');
         return res.json();

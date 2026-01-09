@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import constants from '../../constants';
 
 function HomePage() {
   const [articles, setArticles] = useState([]);
   const [featuredArticles, setFeaturedArticles] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/articles')
+    fetch(`${constants.HOST}/articles`)
       .then(res => res.json())
       .then(data => {
         const articlesList = data.articles || data;

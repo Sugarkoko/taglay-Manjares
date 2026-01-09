@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ArticleList from '../../components/ArticleList';
+import constants from '../../constants';
 
 function ArticleListPage() {
   const [articleList, setArticleList] = useState([]);
@@ -12,7 +13,7 @@ function ArticleListPage() {
 
   // Fetch articles from API
   useEffect(() => {
-    fetch('http://localhost:8000/api/articles')
+    fetch(`${constants.HOST}/articles`)
       .then(res => res.json())
       .then(data => {
         const articlesList = data.articles || data;
