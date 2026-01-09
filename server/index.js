@@ -13,8 +13,8 @@ const articleRoutes = require("./routes/articleRoutes");
 
 const app = express();
 
-// Database Connection
-connectDB();
+// Don't connect to DB immediately - wait for first request
+// This prevents timeout errors in serverless cold starts
 
 app.use(express.json());
 
@@ -52,6 +52,16 @@ app.use((req, res, next) => {
   );
   res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
+});
+
+// Connect to MongoDB before handling requests
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(500).json({ message: "Database connection failed", error: error.message });
+  }
 });
 
 // Routes
