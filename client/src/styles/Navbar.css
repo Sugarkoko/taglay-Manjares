@@ -5,7 +5,7 @@ nav {
   transform: translateX(-50%);
   width: min(1180px, 94vw);
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(45, 55, 72, 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 16px;
@@ -24,7 +24,11 @@ nav {
   gap: 10px;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--text);
+  font-size: 1.25rem;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .logo img {
@@ -51,7 +55,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  background: #f1f5f9;
+  background: rgba(255, 255, 255, 0.1);
   color: var(--text);
 }
 

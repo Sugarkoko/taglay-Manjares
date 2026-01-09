@@ -63,10 +63,12 @@ const modalStyle = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 700,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
+    bgcolor: '#2d3748',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    borderRadius: '16px',
+    boxShadow: '0 18px 50px rgba(0, 0, 0, 0.3)',
     p: 4,
+    color: '#ffffff',
 };
 
 const UserListPage = () => {
@@ -196,13 +198,27 @@ const UserListPage = () => {
                         variant="contained"
                         size="small"
                         onClick={() => handleEdit(params.row._id)}
+                        sx={{
+                            background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+                            color: '#fff',
+                            '&:hover': {
+                                background: 'linear-gradient(135deg, #9333ea 0%, #db2777 100%)',
+                            },
+                        }}
                     >
                         Edit
                     </Button>
                     <Switch
                         checked={params.row.isActive}
                         onChange={() => handleToggleActive(params.row._id, params.row.isActive)}
-                        color="primary"
+                        sx={{
+                            '& .MuiSwitch-switchBase.Mui-checked': {
+                                color: '#a855f7',
+                            },
+                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                                backgroundColor: '#a855f7',
+                            },
+                        }}
                     />
                 </Box>
             ),
@@ -210,14 +226,13 @@ const UserListPage = () => {
     ];
 
     return (
-        <>
+        <Box sx={{ background: '#1f2937', minHeight: '100%' }}>
             <Stack direction="row" sx={{ marginBottom: 5, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h2" fontWeight="bold">
+                <Typography variant="h2" fontWeight="bold" sx={{ color: '#e5e7eb' }}>
                     Users
                 </Typography>
                 <Button
                     variant="contained"
-                    color="primary"
                     startIcon={<AddCircleIcon />}
                     onClick={handleOpen}
                     sx={{
@@ -225,6 +240,14 @@ const UserListPage = () => {
                         right: '20px',
                         top: '100px',
                         zIndex: 1000,
+                        background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+                        color: '#fff',
+                        boxShadow: '0 15px 30px rgba(168, 85, 247, 0.3)',
+                        '&:hover': {
+                            background: 'linear-gradient(135deg, #9333ea 0%, #db2777 100%)',
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 15px 32px rgba(168, 85, 247, 0.4)',
+                        },
                     }}
                 >
                     Add User
@@ -240,43 +263,55 @@ const UserListPage = () => {
                 aria-describedby="add-user-modal-description"
             >
                 <Box sx={modalStyle}>
-                    <Typography id="keep-mounted-modal-title" variant="h4" component="h2">
+                    <Typography id="keep-mounted-modal-title" variant="h4" component="h2" sx={{ color: '#e5e7eb', mb: 2 }}>
                         {isEditing ? 'Edit User' : 'Add User'}
                     </Typography>
                     <Stack id="transition-modal-description" direction="column" spacing={3} sx={{ mt: 2 }}>
                         <FormControl fullWidth variant="standard"  >
                             <Box sx={{ display: 'flex', alignItems: 'flex-end', mb: 2 }}>
-                                <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                                <AccountCircle sx={{ color: '#a855f7', mr: 1, my: 0.5 }} />
                                 <TextField fullWidth id="input-with-sx" label="Enter first name" variant="standard"
                                     value={newUser.firstName}
                                     onChange={(e) =>
                                         setNewUser({ ...newUser, firstName: e.target.value })
                                     }
+                                    sx={{
+                                        '& .MuiInputLabel-root': { color: '#9ca3af' },
+                                        '& .MuiInput-root': { color: '#fff', '&:before': { borderColor: 'rgba(255, 255, 255, 0.2)' }, '&:after': { borderColor: '#a855f7' } },
+                                    }}
                                 />
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'flex-end', mb: 2 }}>
-                                <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                                <AccountCircle sx={{ color: '#a855f7', mr: 1, my: 0.5 }} />
                                 <TextField fullWidth id="input-with-sx" label="Enter last name" variant="standard"
                                     value={newUser.lastName}
                                     onChange={(e) =>
                                         setNewUser({ ...newUser, lastName: e.target.value })
                                     }
+                                    sx={{
+                                        '& .MuiInputLabel-root': { color: '#9ca3af' },
+                                        '& .MuiInput-root': { color: '#fff', '&:before': { borderColor: 'rgba(255, 255, 255, 0.2)' }, '&:after': { borderColor: '#a855f7' } },
+                                    }}
                                 />
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'flex-end', mb: 2 }}>
-                                <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                                <AccountCircle sx={{ color: '#a855f7', mr: 1, my: 0.5 }} />
                                 <TextField fullWidth id="input-with-sx" label="Enter age" variant="standard"
                                     value={newUser.age}
                                     onChange={(e) =>
                                         setNewUser({ ...newUser, age: e.target.value })
                                     }
+                                    sx={{
+                                        '& .MuiInputLabel-root': { color: '#9ca3af' },
+                                        '& .MuiInput-root': { color: '#fff', '&:before': { borderColor: 'rgba(255, 255, 255, 0.2)' }, '&:after': { borderColor: '#a855f7' } },
+                                    }}
                                 />
                             </Box>
 
                             <Stack direction='row' sx={{ display: 'flex', alignItems: 'flex-end', mb: 2 }}>
-                                <AccountCircle color={color} sx={{ mr: 1 }} />
+                                <AccountCircle sx={{ color: '#a855f7', mr: 1 }} />
                                 <FormControl fullWidth variant="standard">
-                                    <InputLabel id="demo-simple-select-standard-label">Gender</InputLabel>
+                                    <InputLabel id="demo-simple-select-standard-label" sx={{ color: '#9ca3af' }}>Gender</InputLabel>
                                     <Select
                                         IconComponent={ExpandMoreIcon}
                                         labelId="demo-simple-select-standard-label"
@@ -285,6 +320,12 @@ const UserListPage = () => {
                                         onChange={(e) =>
                                             setNewUser({ ...newUser, gender: e.target.value })
                                         }
+                                        sx={{
+                                            color: '#fff',
+                                            '&:before': { borderColor: 'rgba(255, 255, 255, 0.2)' },
+                                            '&:after': { borderColor: '#a855f7' },
+                                            '& .MuiSvgIcon-root': { color: '#a855f7' },
+                                        }}
                                     >
                                         <MenuItem value="Male">Male</MenuItem>
                                         <MenuItem value="Female">Female</MenuItem>
@@ -293,40 +334,58 @@ const UserListPage = () => {
                             </Stack>
 
                             <Box sx={{ display: 'flex', alignItems: 'flex-end', mb: 2 }}>
-                                <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                                <AccountCircle sx={{ color: '#a855f7', mr: 1, my: 0.5 }} />
                                 <TextField fullWidth id="input-with-sx" label="Enter mobile" variant="standard"
                                     value={newUser.contactNumber}
                                     onChange={(e) =>
                                         setNewUser({ ...newUser, contactNumber: e.target.value })
                                     }
+                                    sx={{
+                                        '& .MuiInputLabel-root': { color: '#9ca3af' },
+                                        '& .MuiInput-root': { color: '#fff', '&:before': { borderColor: 'rgba(255, 255, 255, 0.2)' }, '&:after': { borderColor: '#a855f7' } },
+                                    }}
                                 />
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'flex-end', mb: 2 }}>
-                                <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                                <AccountCircle sx={{ color: '#a855f7', mr: 1, my: 0.5 }} />
                                 <TextField fullWidth id="input-with-sx" label="Enter address" variant="standard"
                                     value={newUser.address}
                                     onChange={(e) =>
                                         setNewUser({ ...newUser, address: e.target.value })
                                     }
+                                    sx={{
+                                        '& .MuiInputLabel-root': { color: '#9ca3af' },
+                                        '& .MuiInput-root': { color: '#fff', '&:before': { borderColor: 'rgba(255, 255, 255, 0.2)' }, '&:after': { borderColor: '#a855f7' } },
+                                    }}
                                 />
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'flex-end', mb: 2 }}>
-                                <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                                <AccountCircle sx={{ color: '#a855f7', mr: 1, my: 0.5 }} />
                                 <TextField fullWidth id="input-with-sx" label="Enter email" variant="standard"
                                     value={newUser.email}
                                     onChange={(e) =>
                                         setNewUser({ ...newUser, email: e.target.value })
                                     }
+                                    sx={{
+                                        '& .MuiInputLabel-root': { color: '#9ca3af' },
+                                        '& .MuiInput-root': { color: '#fff', '&:before': { borderColor: 'rgba(255, 255, 255, 0.2)' }, '&:after': { borderColor: '#a855f7' } },
+                                    }}
                                 />
                             </Box>
                             <Stack direction='row' sx={{ display: 'flex', alignItems: 'flex-end', mb: 2 }}>
-                                <AccountCircle color={color} sx={{ mr: 1 }} />
+                                <AccountCircle sx={{ color: '#a855f7', mr: 1 }} />
                                 <FormControl fullWidth variant="standard">
-                                    <InputLabel id="type-label">Type</InputLabel>
+                                    <InputLabel id="type-label" sx={{ color: '#9ca3af' }}>Type</InputLabel>
                                     <Select
                                         labelId="type-label"
                                         value={newUser.type || 'viewer'}
                                         onChange={(e) => setNewUser({ ...newUser, type: e.target.value })}
+                                        sx={{
+                                            color: '#fff',
+                                            '&:before': { borderColor: 'rgba(255, 255, 255, 0.2)' },
+                                            '&:after': { borderColor: '#a855f7' },
+                                            '& .MuiSvgIcon-root': { color: '#a855f7' },
+                                        }}
                                     >
                                         <MenuItem value="admin">Admin</MenuItem>
                                         <MenuItem value="editor">Editor</MenuItem>
@@ -335,16 +394,20 @@ const UserListPage = () => {
                                 </FormControl>
                             </Stack>
                             <Box sx={{ display: 'flex', alignItems: 'flex-end', mb: 2 }}>
-                                <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                                <AccountCircle sx={{ color: '#a855f7', mr: 1, my: 0.5 }} />
                                 <TextField fullWidth id="input-with-sx" label="Enter username" variant="standard"
                                     value={newUser.username}
                                     onChange={(e) =>
                                         setNewUser({ ...newUser, username: e.target.value })
                                     }
+                                    sx={{
+                                        '& .MuiInputLabel-root': { color: '#9ca3af' },
+                                        '& .MuiInput-root': { color: '#fff', '&:before': { borderColor: 'rgba(255, 255, 255, 0.2)' }, '&:after': { borderColor: '#a855f7' } },
+                                    }}
                                 />
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'flex-end', mb: 2 }}>
-                                <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                                <AccountCircle sx={{ color: '#a855f7', mr: 1, my: 0.5 }} />
                                 <TextField
                                     fullWidth
                                     id="input-with-sx"
@@ -355,15 +418,40 @@ const UserListPage = () => {
                                     onChange={(e) =>
                                         setNewUser({ ...newUser, password: e.target.value })
                                     }
+                                    sx={{
+                                        '& .MuiInputLabel-root': { color: '#9ca3af' },
+                                        '& .MuiInput-root': { color: '#fff', '&:before': { borderColor: 'rgba(255, 255, 255, 0.2)' }, '&:after': { borderColor: '#a855f7' } },
+                                    }}
                                 />
                             </Box>
                         </FormControl>
                     </Stack>
                     <Stack spacing={2} direction="row">
-                        <Button variant="outlined" onClick={handleClose}>
+                        <Button 
+                            variant="outlined" 
+                            onClick={handleClose}
+                            sx={{
+                                borderColor: 'rgba(168, 85, 247, 0.5)',
+                                color: '#fff',
+                                '&:hover': {
+                                    borderColor: '#a855f7',
+                                    background: 'rgba(168, 85, 247, 0.1)',
+                                },
+                            }}
+                        >
                             Cancel
                         </Button>
-                        <Button variant="contained" onClick={handleSaveUser}>
+                        <Button 
+                            variant="contained" 
+                            onClick={handleSaveUser}
+                            sx={{
+                                background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+                                color: '#fff',
+                                '&:hover': {
+                                    background: 'linear-gradient(135deg, #9333ea 0%, #db2777 100%)',
+                                },
+                            }}
+                        >
                             {isEditing ? 'Save Changes' : 'Add'}
                         </Button>
                     </Stack>
@@ -379,6 +467,89 @@ const UserListPage = () => {
                     pageSize={10}
                     rowsPerPageOptions={[10, 20, 50]}
                     disableSelectionOnClick
+                    sx={{
+                        background: '#2d3748 !important',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        borderRadius: '16px',
+                        color: '#fff',
+                        '& .MuiDataGrid-root': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-main': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-cell': {
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            color: '#e5e7eb',
+                            background: '#2d3748',
+                        },
+                        '& .MuiDataGrid-row': {
+                            background: '#2d3748 !important',
+                            '&:hover': {
+                                background: '#374151 !important',
+                            },
+                        },
+                        '& .MuiDataGrid-columnHeaders': {
+                            background: '#374151 !important',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            color: '#fff',
+                        },
+                        '& .MuiDataGrid-columnHeader': {
+                            background: '#374151 !important',
+                            color: '#fff',
+                        },
+                        '& .MuiDataGrid-columnHeaderTitle': {
+                            color: '#fff',
+                            fontWeight: 600,
+                        },
+                        '& .MuiDataGrid-footerContainer': {
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            background: '#374151 !important',
+                        },
+                        '& .MuiTablePagination-root': {
+                            color: '#fff',
+                        },
+                        '& .MuiDataGrid-virtualScroller': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-virtualScrollerContent': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-virtualScrollerRenderZone': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-overlayWrapper': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-overlay': {
+                            background: '#2d3748 !important',
+                            color: '#e5e7eb',
+                        },
+                        '& .MuiDataGrid-topContainer': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-filler': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-scrollbar': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-scrollbarFiller': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-withBorderColor': {
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                        },
+                        '& .MuiDataGrid-container--top': {
+                            background: '#2d3748 !important',
+                        },
+                        '& .MuiDataGrid-container--bottom': {
+                            background: '#2d3748 !important',
+                        },
+                        '& > *': {
+                            background: '#2d3748',
+                        },
+                    }}
                 />
             </Box>
             {/* <Box sx={{ height: 300, width: '100%', marginBottom: '20px' }}>
@@ -405,7 +576,7 @@ const UserListPage = () => {
                     <DataGrid {...data} />
                 </div>
             </div> */}
-        </>
+        </Box>
     )
 }
 

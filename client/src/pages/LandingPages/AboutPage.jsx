@@ -5,36 +5,32 @@ function AboutPage() {
     <div className="page">
       <div className="page-header">
         <p className="eyebrow">About</p>
-        <h1>Building a calm space for sharp frontend practice.</h1>
+        <h1>Empowering voices through curated content.</h1>
         <p className="lead">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae aliquam ullamcorper
-          suspendisse sed, libero aenean mauris egestas vel integer nunc nunc.
+          We're passionate about bringing you insightful articles that inform, inspire, and spark meaningful conversations. Our platform connects readers with diverse perspectives across technology, business, entertainment, and lifestyle.
         </p>
       </div>
 
       <div className="about-grid">
         <div className="about-card">
-          <div className="feature-icon">UX</div>
-          <h3>Design first</h3>
+          <div className="feature-icon">📚</div>
+          <h3>Quality Content</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit urna, feugiat at orci
-            sollicitudin semper.
+            Every article is carefully curated to ensure you get the most valuable and engaging content. We focus on depth, accuracy, and relevance.
           </p>
         </div>
         <div className="about-card">
-          <div className="feature-icon">DX</div>
-          <h3>Developer friendly</h3>
+          <div className="feature-icon">🌐</div>
+          <h3>Diverse Topics</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu dictum viverra dignissim
-            purus lacus.
+            From cutting-edge technology to lifestyle trends, we cover a wide range of subjects that matter to modern readers.
           </p>
         </div>
         <div className="about-card">
-          <div className="feature-icon">QA</div>
-          <h3>Quality obsessed</h3>
+          <div className="feature-icon">✨</div>
+          <h3>Reader First</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque sed feugiat
-            mattis neque.
+            We prioritize user experience with a clean, intuitive design that makes reading enjoyable and discovering new content effortless.
           </p>
         </div>
       </div>
@@ -43,31 +39,27 @@ function AboutPage() {
         <div className="timeline-row">
           <strong>2024</strong>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo id enim
-            et laoreet, posuere odio.
+            Launched with a vision to create a centralized hub for quality articles. Started building our initial content library and community of writers.
           </p>
         </div>
         <div className="timeline-row">
           <strong>2025</strong>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Imperdiet lectus gravida
-            ultricies tristique eget amet.
+            Expanded our categories and grew our reader base significantly. Introduced enhanced features for better content discovery and user engagement.
           </p>
         </div>
         <div className="timeline-row">
           <strong>Today</strong>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit massa porttitor aenean
-            nibh faucibus scelerisque.
+            Continuing to innovate and evolve. We're committed to bringing you the best reading experience with fresh content updated regularly across all categories.
           </p>
         </div>
       </div>
 
       <div className="cta-banner">
-        <h3>Get the next drop.</h3>
+        <h3>Join our community.</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra interdum vel volutpat in
-          molestie mauris quis.
+          Stay updated with the latest articles, insights, and trends. Explore our growing collection of content that keeps you informed and inspired.
         </p>
       </div>
     </div>

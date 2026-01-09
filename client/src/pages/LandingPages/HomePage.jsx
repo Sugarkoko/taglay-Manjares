@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import articles from '../../article-content';
 
 function HomePage() {
-  const featuredArticles = articles.slice(0, 3);
+  const [articles, setArticles] = useState([]);
+  const [featuredArticles, setFeaturedArticles] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/articles')
+      .then(res => res.json())
+      .then(data => {
+        const articlesList = data.articles || data;
+        setArticles(articlesList);
+        setFeaturedArticles(articlesList.slice(0, 3));
+      })
+      .catch(err => console.error('Error fetching articles:', err));
+  }, []);
 
   return (
     <div className="page">
       <section className="hero">
         <div className="hero-copy">
-          <p className="eyebrow">Frontend studio</p>
-          <h1>Polished UI patterns without the corporate beige.</h1>
+          <p className="eyebrow">Article Hub</p>
+          <h1>Articles for your daily read.</h1>
           <p className="lead">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nec euismod posuere a aliquam
-            mattis ac sed nibh tincidunt non ultrices.
+            Discover engaging stories, insights, and perspectives from writers around the world. From entertainment to technology, find content that inspires and informs.
           </p>
           <div className="hero-actions">
             <Link to="/articles" className="button-link primary">
@@ -26,15 +36,15 @@ function HomePage() {
           <div className="stats">
             <div className="stat">
               <strong>{articles.length}+</strong>
-              <span>React breakdowns</span>
+              <span>Articles</span>
             </div>
             <div className="stat">
-              <strong>3</strong>
-              <span>UI micro-guides</span>
+              <strong>3+</strong>
+              <span>Users</span>
             </div>
             <div className="stat">
-              <strong>Zero</strong>
-              <span>fluff allowed</span>
+              <strong>4</strong>
+              <span>Categories</span>
             </div>
           </div>
         </div>
@@ -42,12 +52,11 @@ function HomePage() {
         <div className="hero-visual">
           <div className="hero-panel">
             <img
-              src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80"
+              src="https://media.licdn.com/dms/image/v2/C5112AQHyTivjkijUAg/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1533804257780?e=2147483647&v=beta&t=iHBq7iyRl4h07KSszls8TpCujE45XPFMkyqgt5Z-FA8"
               alt="Design desk with colorful UI elements"
             />
             <p className="muted">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices in velit varius
-              rutrum vitae arcu.
+              Stay informed with carefully curated articles spanning multiple topics and perspectives.
             </p>
           </div>
         </div>
@@ -59,31 +68,37 @@ function HomePage() {
             <p className="eyebrow">Highlights</p>
             <h2>What you get inside.</h2>
           </div>
-          <span className="muted">Clean patterns, real-world snippets.</span>
+          <span className="muted">Different categories you can choose from.</span>
         </div>
         <div className="feature-grid">
           <div className="feature-card">
-            <div className="feature-icon">UI</div>
-            <h3>Layout recipes</h3>
+            <img
+              src="https://t3.ftcdn.net/jpg/02/85/90/44/360_F_285904463_52tKiXp592qUhmg24eS3f4k1kGQSji3f.jpg"
+              alt="Entertainment"
+            />
+            <h3>Entertainment</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ac sed augue sem sit bibendum
-              at dui varius.
+              Explore the latest in movies, music, TV shows, and pop culture. Stay updated on celebrity news and trending entertainment stories.
             </p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">FE</div>
-            <h3>React clarity</h3>
+            <img
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+              alt="Business & Growth"
+            />
+            <h3>Business & Growth</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies suspendisse
-              pellentesque auctor habitant amet.
+              Gain insights into entrepreneurship, career development, and business strategies. Learn from success stories and industry leaders.
             </p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">UX</div>
-            <h3>Microcopy cues</h3>
+            <img
+              src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+              alt="Tech & Future"
+            />
+            <h3>Tech & Future</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis nisl ultricies
-              dignissim vulputate est.
+              Dive into emerging technologies, innovation, and digital transformation. Discover how technology shapes our tomorrow.
             </p>
           </div>
         </div>
@@ -102,12 +117,15 @@ function HomePage() {
         <div className="article-preview-grid">
           {featuredArticles.map((article) => (
             <div key={article.name} className="article-preview">
+              {article.image && (
+                <img src={article.image} alt={article.title} className="article-preview-image" />
+              )}
               <div className="article-meta">
-                <span className="pill">React</span>
-                <span className="muted">{article.content[0].substring(0, 30)}...</span>
+                <span className="pill">{article.category}</span>
+                <span className="muted">5 min read</span>
               </div>
               <h3>{article.title}</h3>
-              <p>{article.content[0].substring(0, 150)}...</p>
+              <p>{article.content[0].substring(0, 120)}...</p>
               <Link to={`/articles/${article.name}`} className="button-link secondary">
                 Read article
               </Link>

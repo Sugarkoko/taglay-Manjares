@@ -42,6 +42,17 @@ const SignInPage = () => {
                     <h2>Sign in</h2>
                     <p className="muted">Use your email and password to continue.</p>
                 </div>
+                {error && (
+                    <div style={{ 
+                        padding: '12px', 
+                        backgroundColor: '#fee', 
+                        color: '#c00', 
+                        borderRadius: '4px',
+                        marginBottom: '16px'
+                    }}>
+                        {error}
+                    </div>
+                )}
                 <form className="auth-form" onSubmit={handleLogin}>
                     <label className="auth-field">
                         <span>Email</span>

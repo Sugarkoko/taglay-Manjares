@@ -1,8 +1,9 @@
 .corporate-footer {
-  background: #0f172a;
-  color: #e2e8f0;
+  background: #111827;
+  color: #e6ecf7;
   padding: 54px 0 32px;
   margin-top: 72px;
+  border-top: 1px solid var(--border);
 }
 
 .footer-content {
@@ -37,7 +38,10 @@
 }
 
 .social-links a:hover {
-  color: #0ea5e9;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   transform: translateY(-2px);
 }
 

@@ -6,9 +6,9 @@
   gap: 28px;
   padding: 48px 28px;
   background:
-    radial-gradient(120% 90% at 20% 20%, rgba(99, 102, 241, 0.16), transparent),
-    radial-gradient(120% 90% at 80% 10%, rgba(14, 165, 233, 0.18), transparent),
-    linear-gradient(180deg, #f8fbff 0%, #ffffff 50%, #f9f5ff 100%);
+    radial-gradient(120% 90% at 20% 20%, rgba(168, 85, 247, 0.15), transparent),
+    radial-gradient(120% 90% at 80% 10%, rgba(236, 72, 153, 0.12), transparent),
+    var(--bg);
 }
 
 .auth-hero {
@@ -23,8 +23,8 @@
   gap: 8px;
   padding: 8px 12px;
   border-radius: 999px;
-  background: #e0f2fe;
-  color: #0284c7;
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--accent-primary);
   font-weight: 800;
   letter-spacing: -0.02em;
   width: fit-content;
@@ -67,16 +67,17 @@
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: #f8fafc;
+  background: var(--surface-elevated);
+  color: var(--text);
   font-size: 1rem;
   transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
 .auth-field input:focus {
   outline: none;
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.14);
-  background: #ffffff;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
+  background: var(--surface);
 }
 
 .auth-submit {

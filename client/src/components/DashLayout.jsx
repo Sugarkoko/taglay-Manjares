@@ -2,94 +2,39 @@ import React, { useState } from "react";
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
+import Button from "@mui/material/Button";
+import ArticleIcon from "@mui/icons-material/Article";
+import PeopleIcon from "@mui/icons-material/People";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import PeopleIcon from "@mui/icons-material/People";
-import AssessmentIcon from "@mui/icons-material/Assessment";
-import Button from "@mui/material/Button";
-import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import ArticleIcon from "@mui/icons-material/Article";
-import logo from "../assets/react.svg";
-import { Stack } from "@mui/material";
-const drawerWidth = 240;
+import logo from "../assets/logo.svg";
+import Footer from "./Footer";
 
-const openedMixin = (theme) => ({
-  width: drawerWidth,
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: "hidden",
-});
-
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-}));
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
+const AppBar = styled(MuiAppBar)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
+  background: "rgba(45, 55, 72, 0.8)",
+  backdropFilter: "blur(12px)",
+  WebkitBackdropFilter: "blur(12px)",
+  border: "1px solid rgba(255, 255, 255, 0.1)",
+  borderRadius: "16px",
+  boxShadow: "0 18px 50px rgba(0, 0, 0, 0.3)",
+  top: "20px",
+  left: "20px",
+  right: "20px",
+  width: "calc(100% - 40px)",
+  transition: theme.transitions.create(["width", "left"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  ...(open && {
-    ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
   }),
 }));
 
@@ -149,20 +94,24 @@ const getPageTitle = (pathname) => {
 
 const DashLayout = () => {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const location = useLocation();
   const name =
     location.state?.firstName || localStorage.getItem("firstName") || "User";
   const userType = location.state?.type || localStorage.getItem("type");
-  const pageTitle = getPageTitle(location.pathname);
   const navigate = useNavigate();
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    handleMenuClose();
   };
 
   const handleLogout = () => {
@@ -171,30 +120,53 @@ const DashLayout = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", minHeight: "100vh" }}>
         <CssBaseline />
         {/* App Bar */}
-        {/* <AppBar position="fixed" open={open}> */}
         <AppBar position="fixed">
-          <Toolbar>
+          <Toolbar sx={{ gap: 2 }}>
             <IconButton
               color="inherit"
-              aria-label="open drawer"
-              // onClick={(open)}
-              onClick={open ? handleDrawerClose : handleDrawerOpen}
+              aria-label="open menu"
+              onClick={handleMenuOpen}
               edge="start"
-              // sx={{ marginRight: 5, ...(open && { display: 'none' }) }}
-              sx={{ marginRight: 5, ...open }}
+              sx={{ 
+                marginRight: 2,
+                color: '#a855f7',
+                '&:hover': {
+                  background: 'rgba(168, 85, 247, 0.1)',
+                },
+              }}
             >
-              {open ? <MenuOpenIcon /> : <MenuIcon />}
+              <MenuIcon />
             </IconButton>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mr: 2 }}>
+              <img src={logo} alt="Logo" style={{ width: 34, height: 34 }} />
+              <Typography
+                variant="h6"
+                noWrap
+                sx={{
+                  fontWeight: 800,
+                  letterSpacing: '-0.02em',
+                  fontSize: '1.25rem',
+                  background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                Taglay
+              </Typography>
+            </Box>
             <Typography
-              variant="h6"
+              variant="body1"
               noWrap
-              component="div"
-              sx={{ flexGrow: 1 }}
+              sx={{ 
+                flexGrow: 1,
+                color: '#e5e7eb',
+                fontWeight: 600,
+              }}
             >
-              {/* {pageTitle} */}
               Welcome, {name}
             </Typography>
             {/* Search */}
@@ -207,73 +179,114 @@ const DashLayout = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
-            <Button color="inherit" variant="outlined" onClick={handleLogout}>
+            <Button 
+              variant="outlined" 
+              onClick={handleLogout}
+              sx={{
+                borderColor: "rgba(168, 85, 247, 0.5)",
+                color: "#fff",
+                borderRadius: '12px',
+                padding: '10px 16px',
+                fontWeight: 700,
+                textTransform: 'none',
+                "&:hover": {
+                  borderColor: "#a855f7",
+                  background: "rgba(168, 85, 247, 0.1)",
+                  transform: 'translateY(-1px)',
+                },
+                transition: 'all 0.18s ease',
+              }}
+            >
               Logout
             </Button>
           </Toolbar>
         </AppBar>
-        {/* Drawer */}
-        <Drawer variant="permanent" open={open}>
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          {/* Drawer List */}
-          <List>
-            <ListItem disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                component={Link}
-                to="/dashboard/dash-articles"
-                selected={location.pathname === "/dashboard/dash-articles"}
-              >
-                <ListItemIcon>
-                  <ArticleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Articles" />
-              </ListItemButton>
-            </ListItem>
-            {/* <>
-              <ListItem disablePadding sx={{ display: "block" }}>
-                <ListItemButton
-                  component={Link}
-                  to="/dashboard/users"
-                  selected={location.pathname === "/dashboard/users"}
-                >
-                  <ListItemIcon>
-                    <PeopleIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Users" />
-                </ListItemButton>
-              </ListItem>
-            </> */}
-            {userType === "admin" && (
-              <>
-                <ListItem disablePadding sx={{ display: "block" }}>
-                  <ListItemButton
-                    component={Link}
-                    to="/dashboard/users"
-                    selected={location.pathname === "/dashboard/users"}
-                  >
-                    <ListItemIcon>
-                      <PeopleIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Users" />
-                  </ListItemButton>
-                </ListItem>
-              </>
-            )}
-          </List>
-        </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
+
+        {/* Dropdown Menu */}
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+          PaperProps={{
+            sx: {
+              background: '#2d3748',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '12px',
+              mt: 1,
+              boxShadow: '0 18px 50px rgba(0, 0, 0, 0.3)',
+              minWidth: 200,
+            }
+          }}
+        >
+          <MenuItem 
+            onClick={() => handleNavigation('/dashboard/dash-articles')}
+            selected={location.pathname === '/dashboard/dash-articles'}
+            sx={{
+              color: '#e5e7eb',
+              borderRadius: '8px',
+              mx: 1,
+              my: 0.5,
+              '&:hover': {
+                background: 'rgba(168, 85, 247, 0.1)',
+              },
+              '&.Mui-selected': {
+                background: 'rgba(168, 85, 247, 0.2)',
+                '&:hover': {
+                  background: 'rgba(168, 85, 247, 0.3)',
+                },
+              },
+            }}
+          >
+            <ListItemIcon sx={{ color: '#a855f7' }}>
+              <ArticleIcon />
+            </ListItemIcon>
+            <ListItemText>Articles</ListItemText>
+          </MenuItem>
+          {userType === "admin" && (
+            <MenuItem 
+              onClick={() => handleNavigation('/dashboard/users')}
+              selected={location.pathname === '/dashboard/users'}
+              sx={{
+                color: '#e5e7eb',
+                borderRadius: '8px',
+                mx: 1,
+                my: 0.5,
+                '&:hover': {
+                  background: 'rgba(168, 85, 247, 0.1)',
+                },
+                '&.Mui-selected': {
+                  background: 'rgba(168, 85, 247, 0.2)',
+                  '&:hover': {
+                    background: 'rgba(168, 85, 247, 0.3)',
+                  },
+                },
+              }}
+            >
+              <ListItemIcon sx={{ color: '#a855f7' }}>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText>Users</ListItemText>
+            </MenuItem>
+          )}
+        </Menu>
+
+        <Box 
+          component="main" 
+          sx={{ 
+            flexGrow: 1, 
+            display: "flex", 
+            flexDirection: "column", 
+            background: "#1f2937",
+            width: "100%",
+            overflow: "auto",
+            pt: "100px",
+          }}
+        >
           {/* Content */}
-          <Outlet />
+          <Box sx={{ flexGrow: 1, p: 3, width: "100%" }}>
+            <Outlet />
+          </Box>
+          <Footer />
         </Box>
       </Box>
     </>
