@@ -26,10 +26,12 @@ const corsOptions = {
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
+    "https://manjares-client.vercel.app",
+    "https://manjares-client-git-main-sugarkokos-projects.vercel.app",
     "https://taglay-manjares.vercel.app",
     "https://taglay-manjares-git-main-sugarkokos-projects.vercel.app",
-    process.env.CLIENT_URL // Add your deployed client URL as env variable
-  ].filter(Boolean), // Remove empty/undefined values
+    process.env.CLIENT_URL
+  ].filter(Boolean),
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
